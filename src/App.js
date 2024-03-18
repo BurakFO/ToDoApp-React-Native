@@ -5,12 +5,12 @@ import {
   StyleSheet,
   View,
   FlatList,
-  Text,
   Dimensions,
+  Text,
 } from 'react-native';
 
-
 import Components from './components';
+
 const {
   HeadLine,
   ToDoCard,
@@ -18,22 +18,63 @@ const {
 } = Components;
 
 
-const renderCards = ({ item }) => <ToDoCard item ={item} />
-
-
-
 
 const App = () => {
 
-  const [textInputValue, setTextInputValue] = useState('');
+  const renderCards = ({ item }) =>
+    <ToDoCard activeStatus={handleActiveStatus} item={item} textList={textList} cardList={cardList} />
+
   const [textList, setTextList] = useState([]);
+  const [cardList, setCardList] = useState([]);
+  const [isGreen, setIsGreen ] = useState(true);
 
   const handleUpdateText = (text) => {
-    setTextList(prevItems => [...prevItems, text])
-    console.log('Main CALISTI input: ' + text);
+    const trimmedText = text.trim();
+
+    if (trimmedText) {
+      setTextList(prevItems => [...prevItems, text]);
+      console.log('Main CALISTI input: ' + text);
+
+    }
+    else {
+      alert('Bir deger giriniz');
+    };
   };
   // IndexText icerisindeki handleSave icersinde calisir . 
   // onUpdateText ise bu iki dosya arasinda bir kanal/kopru kurar.
+  // Tipki gonullerimizin kurdugu gibi...
+
+
+  const handleActiveStatus = (number) => {
+
+    console.log('SELAMMMM AHAHAHAHAH NASI DA CALISTI AMA ' + cardList.map(item => item.text + ' ' + item.isActive));
+    //Textlisten olusturulan nesnelerin isActive olup olmadigini burda gorebiliyoruz. Fakat buherhangi bir card'a tiklandiginda gercdeklesitiroyr.
+    //id almalı olmalı.
+
+    cardList.map((text, index) => ({
+      
+    }));
+
+
+    let headlineNumber = textList.length - number; //burayi duzenlemek lazim
+    console.log('Number of the green Components is: ', number);
+    return number;
+  };
+
+  useEffect(() => {
+    const updateCardList = textList.map((text, index) => ({
+      id: index + 1,
+      text: text,
+      isActive: isGreen,
+    }));
+
+    setCardList(updateCardList);
+
+  }, [textList]);
+
+  useEffect(() => {
+    console.log('EN SONNTESTTTTTT USEFEEFECT CALISIYPRRR');
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,6 +82,8 @@ const App = () => {
         <View style={styles.upperContent}>
 
           <HeadLine number={textList.length} />
+          {/* textList uzunlugu yerine buraya active-inactive component yani card sayisi gelecek */}
+
           <FlatList
             data={textList}
             renderItem={renderCards}
@@ -49,11 +92,15 @@ const App = () => {
           />
         </View>
 
+        <View>
+          <Text style={{ color: 'white', fontSize: 30 }}>{cardList.map(item => item.text + ' ' + item.isActive) + '  '}</Text>
+        </View>
+
         <IndexText onUpdateText={handleUpdateText} />
 
         {/* 
         
-        App.js dosyasında handleUpdateText adında bir fonksiyon tanımlıyoruz. Bu fonksiyon, "Main CALISTI" metnini konsola yazdırıyor.
+       App.js dosyasında handleUpdateText adında bir fonksiyon tanımlıyoruz. Bu fonksiyon, "Main CALISTI" metnini konsola yazdırıyor.
 
         handleSave fonksiyonu, IndexText bileşenindeki "Kaydet" düğmesine basıldığında tetiklenir. Bu fonksiyon, önce inputText değerini konsola yazdırır ve ardından onUpdateText prop'una atanan fonksiyonu çağırır. Bu, App.js dosyasındaki handleUpdateText fonksiyonunu tetikler.
 

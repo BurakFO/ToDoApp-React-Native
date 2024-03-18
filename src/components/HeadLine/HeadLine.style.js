@@ -10,13 +10,13 @@ export default StyleSheet.create({
     },
 
     toDo:{
-        color:'white',
+        color:'#fd8b42',
         fontSize:45,
 
     },
 
     toDoNumber:{
-        color:'white',
+        color:'#fd8b42',
         fontSize:45,
 
     },

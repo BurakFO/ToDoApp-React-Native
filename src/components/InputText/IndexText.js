@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-    SafeAreaView,
-    StyleSheet,
     View,
-    FlatList,
     Text,
     TextInput,
     TouchableOpacity,
@@ -24,6 +21,7 @@ const IndexText = ({ onUpdateText }) => {
     const handleSave = () => {
         console.log('input text is: ', inputText);
         onUpdateText(inputText); //??
+        setInputText('');
     };  //save butonuna bastiktan sonra inputu aliyo.
 
 
@@ -37,6 +35,7 @@ const IndexText = ({ onUpdateText }) => {
                     placeholderTextColor="#808080" // Placeholder rengi
                     onChangeText={(text) => textChange(text)}
                     value={inputText}
+
                 />
             </View>
 

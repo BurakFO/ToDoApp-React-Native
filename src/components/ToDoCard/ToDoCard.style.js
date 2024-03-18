@@ -15,9 +15,18 @@ export default StyleSheet.create({
         justifyContent:'center',
     },
 
-    detail:{
+    pressedToDoCard:{
+        backgroundColor:'grey',
+    },
+
+    text:{
         fontSize:17,
         color:'white',
         padding:10,
     },
+
+    pressedText:{
+        textDecorationLine:'line-through',
+    },
+
 });
